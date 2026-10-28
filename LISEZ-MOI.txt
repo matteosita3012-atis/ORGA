@@ -1,0 +1,38 @@
+ORGA — APP POUR IPHONE
+=======================
+
+Ce dossier contient l’app complète (matrice, calendrier, routines, pomodoro).
+Elle doit être mise en ligne une fois sur un hébergement gratuit, puis installée
+sur l’iPhone depuis Safari.
+
+1. METTRE L’APP EN LIGNE (une seule fois, avec GitHub Pages)
+   - Crée un compte gratuit sur github.com.
+   - Crée un nouveau dépôt (« New repository »), par exemple « eisenhower », en Public.
+   - Dans le dépôt : « Add file » > « Upload files », dépose TOUS les fichiers de ce
+     dossier (index.html, sw.js, manifest.webmanifest et les 4 images), puis « Commit changes ».
+   - Va dans « Settings » > « Pages », choisis « Deploy from a branch », branche « main »,
+     dossier « / (root) », puis « Save ».
+   - Après une minute, ton adresse apparaît : https://TON-NOM.github.io/eisenhower/
+
+2. INSTALLER SUR L’IPHONE
+   - Ouvre cette adresse dans Safari.
+   - Bouton Partager > « Sur l’écran d’accueil » > Ajouter.
+   - L’app s’ouvre en plein écran, avec sa propre icône, et fonctionne aussi hors ligne.
+
+3. RÉCUPÉRER TES DONNÉES ACTUELLES
+   - Dans la version Claude : bouton « Sauvegarde » > « Copier ».
+   - Dans l’app installée : bouton « Sauvegarde » > colle le texte dans « Importer » > « Importer ».
+
+4. METTRE À JOUR L’APP
+   - Demande la modification à Claude, dans ce même projet.
+   - Claude te renvoie un nouveau index.html (et sw.js si nécessaire).
+   - Sur GitHub : « Add file » > « Upload files », dépose le nouveau fichier par-dessus
+     l’ancien, puis « Commit changes ».
+   - Ferme puis rouvre l’app sur l’iPhone : la nouvelle version s’affiche.
+     Tes données restent intactes, elles sont stockées sur le téléphone.
+
+BON À SAVOIR
+   - Tes données sont enregistrées sur l’iPhone, dans l’app. Fais de temps en temps
+     un export via « Sauvegarde » pour en garder une copie.
+   - Le minuteur Pomodoro se met à jour quand tu reviens dans l’app, mais iOS ne joue
+     pas de son quand l’app est en arrière-plan.
