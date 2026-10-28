@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="m">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -513,6 +513,184 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
   .rel { grid-column: 2; grid-row: 2; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* Règles téléphone appliquées en permanence */
+html.m .small-dlg { height: auto; max-height: 100%; margin: auto auto 0; border-radius: 16px 16px 0 0; }
+html.m .ag-row { grid-template-columns: 1fr; gap: 4px; }
+html.m .cal-mcell { min-height: 68px; padding: 4px 3px; }
+html.m .cal-mnum { width: 24px; height: 24px; font-size: 12px; }
+html.m .cal-mhead { padding: 8px 4px 6px; text-align: center; }
+html.m .cal-mchip, html.m .cal-mcell .cal-due { font-size: 0; padding: 0; height: 6px; border-radius: 3px; border-left: none; background: var(--dc); }
+html.m .cal-mcell .cal-due.late { background: var(--late); }
+html.m .cal-mcell .cal-due::before, html.m .cal-mchip .mt { display: none; }
+html.m .cal-more { font-size: 10px; padding: 0 2px; }
+html.m .cal-mchip.is-event, html.m .cal-mcell .cal-ev { font-size: 0; padding: 0; height: 6px; border: none; border-radius: 3px; box-shadow: none; background: var(--dc); opacity: .55; }
+html.m .cal-mchip.is-event::before, html.m .cal-mcell .cal-ev::before { content: none; }
+html.m .pomo { grid-template-columns: 1fr; }
+html.m .tabs { display: flex; }
+html.m .tab { flex: 1; justify-content: center; }
+html.m .add { grid-template-columns: 1fr 1fr; }
+html.m .add input[type="text"], html.m .due-field, html.m .btn-add { grid-column: 1 / -1; }
+html.m .matrix { grid-template-columns: 1fr; grid-template-rows: none; }
+html.m .axis-top, html.m .axis-side { display: none; }
+html.m .quad { min-height: 0; }
+html.m dialog { width: 100%; max-width: 100%; height: 100%; max-height: 100%; border-radius: 0; margin: 0; }
+html.m .dlg-head { padding-top: calc(var(--top-safe) + 12px); }
+html.m .small-dlg .dlg-head { padding-top: 20px; }
+html.m .dlg-body { padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px)); }
+html.m .row { grid-template-columns: 52px 1fr auto; }
+html.m .rel { grid-column: 2; grid-row: 2; }
+/* ===== Version iPhone ===== */
+.tabbar, .fab, .m-head, .m-quads { display: none; }
+html.m body { font-size: 16px; }
+html.m { padding-top: 0 !important; --top-safe: max(env(safe-area-inset-top, 0px), 50px); }
+@media (max-width: 599px) {
+  html.m body::before { content: ""; position: fixed; z-index: 45; top: 0; left: 0; right: 0; height: var(--top-safe); background: color-mix(in srgb, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+}
+html.m .wrap { max-width: 430px; padding: calc(var(--top-safe) + 16px) 16px calc(130px + env(safe-area-inset-bottom, 0px)); }
+html.m input, html.m select, html.m textarea { font-size: 16px; }
+html.m .btn-sec, html.m .btn-add { min-height: 44px; }
+html.m .topbar, html.m #panel-matrice > header, html.m .axis-top, html.m .axis-side, html.m #calHint, html.m #panel-calendrier .cal-actions, html.m .rt-bar, html.m [data-v="week"] { display: none !important; }
+html.m footer > span:first-child { display: none; }
+html.m footer { justify-content: center; }
+html.m .panel > header { margin-bottom: 12px; align-items: center; }
+html.m .panel > header .sub { display: none; }
+html.m .panel > header h1 { font-size: 2.2rem; }
+
+/* Tab bar */
+html.m .tabbar {
+  display: grid; grid-template-columns: repeat(4, 1fr); position: fixed; z-index: 40; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: min(430px, 100%); padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+  background: color-mix(in srgb, var(--sheet) 84%, transparent); -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4);
+  border-top: 1px solid var(--line);
+}
+html.m .tabbar .tb, html.m .tabbar .tab {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font: inherit; font-size: 11px; font-weight: 600;
+  background: none; border: none; color: var(--muted); padding: 6px 0 4px; border-radius: 12px; cursor: pointer; min-height: 52px;
+}
+html.m .tabbar svg { width: 26px; height: 26px; }
+html.m .tabbar .tab[aria-selected="true"] { color: var(--ink); background: none; }
+html.m .tabbar .tab[aria-selected="true"] svg { stroke-width: 2.3; }
+html.m .tabbar em { font-style: normal; font-variant-numeric: tabular-nums; color: var(--q1); }
+
+/* Bouton + */
+html.m .fab {
+  display: grid; place-items: center; position: fixed; z-index: 41; right: max(16px, calc(50% - 199px)); bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+  width: 58px; height: 58px; border-radius: 50%; border: none; background: var(--ink); color: var(--sheet); cursor: pointer;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .3);
+}
+html.m .fab svg { width: 26px; height: 26px; }
+html.m[data-tab="pomodoro"] .fab { display: none; }
+
+/* En-tête matrice */
+html.m .m-head { display: flex; align-items: center; justify-content: space-between; margin: 4px 0 12px; }
+html.m .m-title { font-family: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif; font-weight: 800; font-size: 2.2rem; letter-spacing: -.02em; line-height: 1; margin: 0; }
+html.m .m-head-actions { display: flex; gap: 8px; }
+html.m .icon-btn { width: 44px; height: 44px; border-radius: 50%; border: none; background: var(--sheet); color: var(--ink); display: grid; place-items: center; cursor: pointer; }
+html.m .icon-btn svg { width: 21px; height: 21px; }
+
+/* Filtres : ligne qui défile */
+html.m .panel .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-left: -16px; margin-right: -16px; padding: 2px 16px 4px; }
+html.m .panel .filters::-webkit-scrollbar { display: none; }
+html.m .panel .filters > .lbl { display: none; }
+html.m .panel .filters .chip-btn { flex: none; padding: 9px 15px; font-size: 14px; border-radius: 999px; }
+
+/* Tuiles des carrés */
+html.m .m-quads { display: block; margin: 4px 0 14px; }
+html.m .vrac-bar {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; font: inherit; font-weight: 600; font-size: 15px;
+  background: var(--sheet); color: var(--ink); border: 2px solid transparent; border-radius: 14px; padding: 13px 16px; margin-bottom: 10px; cursor: pointer;
+}
+html.m .vrac-bar b { font-weight: 700; color: var(--muted); }
+html.m .qtiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+html.m .qtile {
+  position: relative; text-align: left; font: inherit; background: var(--sheet); color: var(--ink); border: 2px solid transparent; border-radius: 18px;
+  padding: 14px; min-height: 96px; display: flex; flex-direction: column; justify-content: space-between; gap: 6px; cursor: pointer;
+}
+html.m .qtile::before { content: ""; position: absolute; top: 15px; right: 15px; width: 12px; height: 12px; border-radius: 50%; background: var(--qc); }
+html.m .qt-name { display: block; font-family: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif; font-weight: 800; font-size: 1.25rem; line-height: 1.1; }
+html.m .qt-sub { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+html.m .qt-n { font-family: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif; font-weight: 800; font-size: 2rem; line-height: 1; }
+html.m .qtile[aria-pressed="true"], html.m .vrac-bar[aria-pressed="true"] { border-color: var(--qc, var(--ink)); background: var(--qs, var(--sheet)); }
+
+/* Liste du carré actif */
+html.m .matrix { display: block; }
+html.m .quad[data-q]:not(.m-active) { display: none; }
+html.m .quad { min-height: 0; padding: 16px 14px; margin-bottom: 0; }
+html.m .quad .qhead h2 { font-size: 1.45rem; }
+html.m .hint { font-size: 13.5px; }
+html.m .inbox ul { display: flex; }
+html.m li.task { grid-template-columns: auto 1fr; gap: 12px; padding: 13px 14px; cursor: pointer; align-items: start; border-radius: 12px; }
+html.m li.task .actions { display: none; }
+html.m li.task:active { background: var(--q4-soft); }
+html.m .check { width: 26px; height: 26px; border-radius: 8px; margin: 0; }
+html.m .label { font-size: 16px; line-height: 1.35; }
+html.m .meta { gap: 8px; margin-top: 7px; }
+html.m .tag { font-size: 11.5px; padding: 2px 7px; }
+html.m .pomo-badge, html.m .due { font-size: 12.5px; }
+html.m .done-item { padding: 8px 6px; }
+html.m .m-vrac-link { display: block; margin: 16px auto 0; font-size: 14px; }
+html.m .add { border: none; padding: 0; background: none; grid-template-columns: 1fr 1fr; margin: 4px 0 0; gap: 10px; }
+html.m .add input[type="text"] { grid-column: 1 / -1; background: var(--paper); border: 1.5px solid var(--line); border-radius: 12px; padding: 13px 14px; }
+html.m .add .due-field, html.m .add .btn-add { grid-column: 1 / -1; }
+html.m .add .toggle { padding: 12px 10px; }
+html.m .add .btn-add { order: 10; min-height: 50px; font-size: 16px; }
+html.m .add .target { order: 9; padding: 0 2px; }
+
+/* Calendrier */
+html.m .cal-bar { flex-direction: column; align-items: stretch; gap: 10px; }
+html.m .cal-title { font-size: 1.15rem; margin-left: 4px; }
+html.m .cal-nav .btn-sec { min-height: 40px; padding: 8px 14px; }
+html.m .cal-strip { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 10px; }
+html.m .cal-strip[hidden] { display: none; }
+.cal-strip button { font: inherit; background: none; border: none; color: var(--ink); display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px 0; cursor: pointer; }
+.cal-strip .sw { font-size: 11px; font-weight: 600; color: var(--muted); }
+.cal-strip .sd { font-family: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif; font-weight: 800; font-size: 1.05rem; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; }
+.cal-strip .today .sd { color: var(--late); }
+.cal-strip [aria-pressed="true"] .sd { background: var(--ink); color: var(--sheet); }
+.cal-strip .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--muted); opacity: 0; }
+.cal-strip .has .dot { opacity: 1; }
+.cal-week.one-day { min-width: 0; grid-template-columns: 52px minmax(0, 1fr); }
+.cal-week.one-day .cal-corner, .cal-week.one-day .cal-dayhead { display: none; }
+html.m .cal-week-wrap { max-height: calc(100vh - 330px); min-height: 380px; }
+html.m .cal-block { padding: 5px 8px; border-radius: 10px; }
+html.m .cal-block .bn { font-size: 14px; }
+html.m .cal-block .bt { font-size: 12px; }
+html.m .rt-editing .cal-col { touch-action: none; }
+html.m .rt-editor { padding: 12px; }
+html.m .rt-editor .txt { flex-basis: 100%; }
+
+/* Pomodoro */
+html.m .ring { width: 250px; }
+html.m .timer-card { padding: 22px 16px 26px; gap: 18px; }
+html.m .controls .btn-main { min-width: 140px; }
+
+/* Feuilles (bottom sheets) */
+.ctx-back { position: fixed; inset: 0; z-index: 999; background: rgba(8, 10, 16, .45); }
+html.m .ctx-menu {
+  left: 50% !important; top: auto !important; bottom: calc(10px + env(safe-area-inset-bottom, 0px)) !important; transform: translateX(-50%);
+  width: min(410px, calc(100% - 20px)); max-width: none; max-height: 80vh; overflow-y: auto; border-radius: 20px; padding: 8px;
+}
+html.m .ctx-head { white-space: normal; font-size: 13px; text-align: center; padding: 8px 14px 10px; }
+html.m .ctx-item { display: flex; align-items: center; gap: 10px; font-size: 17px; padding: 14px; border-radius: 12px; }
+html.m .ctx-item .dot { width: 12px; height: 12px; }
+html.m .ctx-cancel { justify-content: center; font-weight: 700; margin-top: 6px; background: var(--paper); }
+html.m .small-dlg .dlg-head::before { content: ""; display: block; width: 40px; height: 5px; border-radius: 3px; background: var(--line); margin: -8px auto 12px; }
+html.m dialog { max-width: 430px; margin: 0 auto; }
+html.m .small-dlg { margin: auto auto 0; }
+
+/* Aperçu sur grand écran : cadre de téléphone */
+@media (min-width: 600px) and (hover: hover) {
+  html.m body { background: #0B0E13; }
+  html.m .wrap { margin: 24px auto; min-height: 860px; border-radius: 40px; background: var(--paper); box-shadow: 0 0 0 10px #262B34, 0 30px 80px rgba(0, 0, 0, .45); }
+  html.m .tabbar { bottom: 0; border-radius: 0 0 30px 30px; }
+}
+html.m .small-dlg { height: fit-content; }
+html.m .cal-bar > .filters { order: -1; margin: 0 -16px !important; }
+html.m .cal-bar > .cal-nav { justify-content: space-between; flex-wrap: nowrap; gap: 8px; }
+html.m .cal-bar .cal-title { order: -1; flex: 1; margin: 0; font-size: 1.2rem; line-height: 1.2; }
+html.m #calNavBtns { gap: 6px; flex-wrap: nowrap; }
+html.m #calNavBtns .btn-sec { padding: 8px 12px; }
 </style>
 </head>
 <body>
@@ -530,6 +708,13 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
   </div>
 
   <div id="panel-matrice" class="panel">
+  <div class="m-head">
+    <h1 class="m-title">Matrice</h1>
+    <div class="m-head-actions">
+      <button class="icon-btn" id="mDeadlines" aria-label="Toutes les deadlines" title="Toutes les deadlines"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></button>
+      <button class="icon-btn" id="mArchives" aria-label="Archives" title="Archives"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="17" height="5" rx="1.5"/><path d="M5 9v9.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V9M10 13h4"/></svg></button>
+    </div>
+  </div>
   <header>
     <div>
       <h1>Matrice<br>d’Eisenhower</h1>
@@ -563,6 +748,16 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
   <div class="filters" role="group" aria-label="Filtrer par catégorie">
     <span class="lbl">Afficher</span>
     <span class="chip-slot" data-slot="filter" data-scope="matrice" data-counts="1"></span>
+  </div>
+
+  <div class="m-quads">
+    <button class="vrac-bar" data-qt="0" style="--qc: var(--muted); --qs: var(--q4-soft)"><span>En vrac</span><b><span id="t0">0</span> à classer</b></button>
+    <div class="qtiles">
+      <button class="qtile" data-qt="1" style="--qc: var(--q1); --qs: var(--q1-soft)"><span><span class="qt-name">Faire</span><span class="qt-sub">Urgent · Important</span></span><span class="qt-n" id="t1">0</span></button>
+      <button class="qtile" data-qt="2" style="--qc: var(--q2); --qs: var(--q2-soft)"><span><span class="qt-name">Planifier</span><span class="qt-sub">Important</span></span><span class="qt-n" id="t2">0</span></button>
+      <button class="qtile" data-qt="3" style="--qc: var(--q3); --qs: var(--q3-soft)"><span><span class="qt-name">Déléguer</span><span class="qt-sub">Urgent</span></span><span class="qt-n" id="t3">0</span></button>
+      <button class="qtile" data-qt="4" style="--qc: var(--q4); --qs: var(--q4-soft)"><span><span class="qt-name">Éliminer</span><span class="qt-sub">Ni l’un ni l’autre</span></span><span class="qt-n" id="t4">0</span></button>
+    </div>
   </div>
 
   <section class="quad inbox" data-q="0">
@@ -617,9 +812,11 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
         <h2 class="cal-title" id="calTitle"></h2>
       </div>
       <div class="filters" role="group" aria-label="Vue" style="margin:0">
+        <button class="chip-btn" data-v="day">Jour</button>
         <button class="chip-btn" data-v="week">Semaine</button>
         <button class="chip-btn" data-v="month">Mois</button>
         <button class="chip-btn" data-v="agenda">Agenda</button>
+        <button class="chip-btn" id="mRoutine">Routine</button>
       </div>
     </div>
     <div class="filters" role="group" aria-label="Filtrer par catégorie">
@@ -648,6 +845,7 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
       </div>
       <p class="rt-help">Choisis un type puis glisse sur la grille pour peindre une plage : elle se répétera chaque semaine. Un simple clic peint une heure. Clique sur une plage existante pour la modifier, ou utilise la gomme pour effacer.</p>
     </div>
+    <div id="calStrip" class="cal-strip" hidden></div>
     <div id="calWeek" class="cal-week-wrap"></div>
     <div id="calMonth" hidden></div>
     <div id="calAgenda" hidden></div>
@@ -719,6 +917,24 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
     </div>
   </div>
 </div>
+
+<nav class="tabbar" role="tablist" aria-label="Navigation">
+  <button class="tab" role="tab" data-tab="matrice" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg><span>Matrice</span></button>
+  <button class="tab" role="tab" data-tab="calendrier" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span>Calendrier</span></button>
+  <button class="tab" role="tab" data-tab="pomodoro" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="7.5"/><path d="M12 9.5V13l2.5 1.8M10 3h4"/></svg><span>Pomodoro <em id="pLive2"></em></span></button>
+  <button class="tb" id="tbMore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="18.5" cy="12" r="1.3"/></svg><span>Plus</span></button>
+</nav>
+<button class="fab" id="fab" aria-label="Ajouter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></button>
+
+<dialog id="addDlg" class="small-dlg" aria-labelledby="addTitle">
+  <div class="dlg-head">
+    <div class="dlg-title">
+      <div><h2 id="addTitle">Nouvelle tâche</h2></div>
+      <button class="icon" id="addClose" aria-label="Fermer">✕</button>
+    </div>
+  </div>
+  <div class="dlg-body" id="addBody"></div>
+</dialog>
 
 <dialog id="listView" aria-labelledby="listTitle">
   <div class="dlg-head">
@@ -1044,7 +1260,10 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
     const text = input.value.trim();
     if (!text) { input.focus(); return; }
     tasks.push({ id: uid(), text, q: currentQ(), d: domain || undefined, due: newDue.value || null, done: false });
-    input.value = ""; newDue.value = ""; save(); render(); input.focus();
+    const q0 = currentQ();
+    input.value = ""; newDue.value = ""; save();
+    if (isMobile()) { activeQ = q0; saveMui(); if (addDlg.open) addDlg.close(); render(); }
+    else { render(); input.focus(); }
   }
   document.getElementById("addBtn").addEventListener("click", add);
   input.addEventListener("keydown", e => { if (e.key === "Enter") add(); });
@@ -1088,6 +1307,7 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
     pomoRefreshTasks();
     calCleanup();
     calRender();
+    updateTiles();
   }
 
   /* Completed tasks */
@@ -1254,6 +1474,12 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
     body.append(makeTag(t, true), label, meta);
     li.append(cb, body, actions);
 
+    if (isMobile()) li.draggable = false;
+    li.addEventListener("click", e => {
+      if (!isMobile()) return;
+      if (e.target.closest(".check, .tag, .due, input, .small-link, [contenteditable='true']")) return;
+      openTaskSheet(t, li);
+    });
     li.addEventListener("dragstart", e => { dragId = t.id; li.classList.add("dragging"); e.dataTransfer.effectAllowed = "move"; try { e.dataTransfer.setData("text/plain", t.id); } catch (_) {} });
     li.addEventListener("dragend", () => { dragId = null; li.classList.remove("dragging"); document.querySelectorAll(".quad.over").forEach(q => q.classList.remove("over")); });
     return li;
@@ -1552,6 +1778,7 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
     const filled = (P.mode === "long" && P.cycle > 0 && P.cycle % every === 0) ? every : P.cycle % every;
     pCycle.innerHTML = Array.from({ length: every }, (_, i) => "<i class=\"" + (i < filled ? "on" : "") + "\"></i>").join("");
     pLive.textContent = P.running ? fmtClock(rem) : "";
+    document.getElementById("pLive2").textContent = P.running ? fmtClock(rem) : "";
     document.title = P.running ? fmtClock(rem) + " · " + PM[P.mode] : baseTitle;
   }
   function startTimer() { unlockAudio(); P.endAt = Date.now() + P.remaining * 1000; P.running = true; savePomo(); draw(); }
@@ -1678,7 +1905,7 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
   try {
     const c = JSON.parse(localStorage.getItem(CKEY)) || {};
     if (Array.isArray(c.sessions)) sessions = c.sessions;
-    if (["agenda", "month"].includes(c.view)) calView = c.view;
+    if (["agenda", "month", "day"].includes(c.view)) calView = c.view;
   } catch (e) {}
   function saveCal() { try { localStorage.setItem(CKEY, JSON.stringify({ sessions, view: calView })); } catch (e) {} }
   const fmtWd = new Intl.DateTimeFormat("fr-BE", { weekday: "short" });
@@ -1728,7 +1955,7 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
   function calRender() {
     if (tab !== "calendrier") return;
     document.querySelectorAll("[data-v]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v === calView)));
-    calWeekEl.hidden = calView !== "week";
+    calWeekEl.hidden = calView !== "week" && calView !== "day";
     calMonthEl.hidden = calView !== "month";
     calAgendaEl.hidden = calView !== "agenda";
     document.getElementById("calNavBtns").hidden = calView === "agenda";
@@ -1739,9 +1966,10 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
     hint.textContent = calView === "month"
       ? "Clique sur un jour pour y planifier une session ou ajouter un événement, ou sur son numéro pour ouvrir la semaine correspondante. Clic droit sur une session ou un événement pour le modifier ou le supprimer."
       : "Clique et glisse sur une plage vide pour sélectionner l’horaire (par demi-heures), ou clique simplement pour un créneau d’une heure. Clic droit sur un bloc pour le modifier ou le supprimer, et tire son bord haut ou bas pour ajuster l’horaire.";
-    if (calView !== "week") rtEditing = false;
+    if (calView !== "week" && calView !== "day") rtEditing = false;
+    renderStrip();
     rtSyncUI();
-    if (calView === "week") renderWeek();
+    if (calView === "week" || calView === "day") renderWeek();
     else if (calView === "month") renderMonth();
     else renderAgenda();
   }
@@ -1783,11 +2011,13 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
   }
 
   function renderWeek() {
-    const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
-    const last = days[6];
+    const isDay = calView === "day";
+    const days = isDay ? [new Date(calDay)] : Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+    const last = days[days.length - 1];
     calTitle.textContent = weekStart.getMonth() === last.getMonth()
       ? weekStart.getDate() + " – " + last.getDate() + " " + fmtMonthYear.format(last)
       : fmtShort.format(weekStart) + " – " + fmtShort.format(last) + " " + last.getFullYear();
+    if (isDay) calTitle.textContent = cap(fmtDayLong.format(calDay));
     if (rtEditing) calTitle.textContent = "Routine · " + (activeTpl() ? activeTpl().name : "");
     const keys = days.map(d => localDay(d.getTime()));
     const vs = rtEditing ? [] : visibleSessions().filter(s => keys.includes(s.date));
@@ -1801,7 +2031,7 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
     const todayKey = localDay(Date.now());
     const bodyH = (endH - startH) * HOUR;
 
-    const grid = document.createElement("div"); grid.className = "cal-week";
+    const grid = document.createElement("div"); grid.className = "cal-week" + (isDay ? " one-day" : "");
     const corner = document.createElement("div"); corner.className = "cal-corner"; grid.appendChild(corner);
     days.forEach((d, i) => {
       const h = document.createElement("div");
@@ -1812,7 +2042,7 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
 
     const lab = document.createElement("div"); lab.className = "cal-alldaylab"; lab.textContent = "Journée"; grid.appendChild(lab);
     days.forEach((d, i) => {
-      const c = document.createElement("div"); c.className = "cal-allday" + (i >= 5 ? " weekend" : "");
+      const c = document.createElement("div"); c.className = "cal-allday" + ((d.getDay() + 6) % 7 >= 5 ? " weekend" : "");
       vs.filter(s => s.allDay && s.date === keys[i]).forEach(s => c.appendChild(allDayChip(s)));
       (rtEditing ? [] : visible("calendrier")).filter(t => !t.done && t.due === keys[i]).forEach(t => c.appendChild(dueChip(t)));
       grid.appendChild(c);
@@ -1826,13 +2056,27 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
     grid.appendChild(gut);
 
     days.forEach((d, i) => {
+      const wd = (d.getDay() + 6) % 7;
       const col = document.createElement("div");
-      col.className = "cal-col" + (keys[i] === todayKey ? " today" : "") + (i >= 5 ? " weekend" : "");
+      col.className = "cal-col" + (keys[i] === todayKey ? " today" : "") + (wd >= 5 ? " weekend" : "");
       col.style.height = bodyH + "px";
       col.style.setProperty("--hour", HOUR + "px");
-      rblocks.filter(b => b.day === i).forEach(b => col.appendChild(rtEl(b, startH)));
+      rblocks.filter(b => b.day === wd).forEach(b => col.appendChild(rtEl(b, startH)));
       col.addEventListener("pointerdown", e => {
         if (e.target !== col || e.button !== 0) return;
+        if (e.pointerType === "touch" && !rtEditing) {
+          const sx0 = e.clientX, sy0 = e.clientY;
+          const yy0 = e.clientY - col.getBoundingClientRect().top;
+          const onUp = ev => {
+            col.removeEventListener("pointerup", onUp);
+            if (Math.hypot(ev.clientX - sx0, ev.clientY - sy0) > 10) return;
+            const m = Math.min(1440 - 60, startH * 60 + Math.floor((yy0 / HOUR) * 2) * 30);
+            openSession({ date: keys[i], start: fmtHM(m), end: hmInput(m + 60) });
+          };
+          col.addEventListener("pointerup", onUp);
+          col.addEventListener("pointercancel", () => col.removeEventListener("pointerup", onUp), { once: true });
+          return;
+        }
         if (e.pointerType === "mouse") e.preventDefault();
         const base = startH * 60;
         const yAt = ev => ev.clientY - col.getBoundingClientRect().top;
@@ -1866,9 +2110,9 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
           if (rtEditing) {
             if (!moved) {
               const m = base + (y0 / HOUR) * 60;
-              const hit = rtBlocks().find(bl => bl.day === i && toMin(bl.start) <= m && endMin(bl) > m);
+              const hit = rtBlocks().find(bl => bl.day === wd && toMin(bl.start) <= m && endMin(bl) > m);
               if (hit) {
-                if (rtBrush === ERASE) { paintRange(i, toMin(hit.start), endMin(hit), null); rtChanged(); }
+                if (rtBrush === ERASE) { paintRange(wd, toMin(hit.start), endMin(hit), null); rtChanged(); }
                 else openRtBlock(hit);
                 return;
               }
@@ -1876,7 +2120,7 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
               a = Math.min(1440 - 60, base + Math.floor((y0 / HOUR) * 2) * 30);
               b = a + 60;
             }
-            paintRange(i, a, b, rtBrush === ERASE ? null : rtBrush);
+            paintRange(wd, a, b, rtBrush === ERASE ? null : rtBrush);
             rtChanged();
             return;
           }
@@ -1952,7 +2196,7 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
     ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].forEach(w => {
       const h = document.createElement("div"); h.className = "cal-mhead"; h.textContent = w; grid.appendChild(h);
     });
-    const goWeek = d => { weekStart = mondayOf(d); lastScrollKey = ""; calView = "week"; saveCal(); calRender(); };
+    const goWeek = d => { weekStart = mondayOf(d); calDay = new Date(d); lastScrollKey = ""; calView = isMobile() ? "day" : "week"; saveCal(); calRender(); };
     for (let i = 0; i < nDays; i++) {
       const d = addDays(first, i);
       const key = localDay(d.getTime());
@@ -2063,17 +2307,25 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
 
   function calShift(n) {
     if (calView === "month") monthStart = new Date(monthStart.getFullYear(), monthStart.getMonth() + n, 1);
+    else if (calView === "day") calDay = addDays(calDay, n);
     else weekStart = addDays(weekStart, 7 * n);
     calRender();
   }
   document.getElementById("calPrev").addEventListener("click", () => calShift(-1));
   document.getElementById("calNext").addEventListener("click", () => calShift(1));
   document.getElementById("calToday").addEventListener("click", () => {
-    weekStart = mondayOf(new Date()); monthStart = firstOfMonth(new Date()); lastScrollKey = ""; calRender();
+    weekStart = mondayOf(new Date()); monthStart = firstOfMonth(new Date());
+    calDay = new Date(); calDay.setHours(0, 0, 0, 0);
+    lastScrollKey = ""; calRender();
   });
   document.querySelectorAll("[data-v]").forEach(b => b.addEventListener("click", () => {
     const v = b.dataset.v;
     if (v === "month" && calView === "week") monthStart = firstOfMonth(addDays(weekStart, 3));
+    if (v === "month" && calView === "day") monthStart = firstOfMonth(calDay);
+    if (v === "day" && calView === "month") {
+      const now = new Date();
+      calDay = (now.getMonth() === monthStart.getMonth() && now.getFullYear() === monthStart.getFullYear()) ? new Date(now.getFullYear(), now.getMonth(), now.getDate()) : new Date(monthStart);
+    }
     if (v === "week" && calView === "month") {
       const mid = addDays(weekStart, 3);
       if (mid.getMonth() !== monthStart.getMonth() || mid.getFullYear() !== monthStart.getFullYear()) {
@@ -2086,40 +2338,62 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
   }));
   document.getElementById("calNew").addEventListener("click", () => openSession({ kind: "task" }));
   document.getElementById("calNewEvent").addEventListener("click", () => openSession({ kind: "event" }));
-  setInterval(() => { if (tab === "calendrier" && calView === "week") calRender(); }, 60000);
+  setInterval(() => { if (tab === "calendrier" && (calView === "week" || calView === "day")) calRender(); }, 60000);
 
-  /* Context menu & resize */
+  /* Context menu, action sheet & resize */
   const ctx = document.createElement("div");
   ctx.className = "ctx-menu"; ctx.hidden = true; ctx.setAttribute("role", "menu");
-  document.body.appendChild(ctx);
-  function closeCtx() { ctx.hidden = true; }
+  const ctxBack = document.createElement("div");
+  ctxBack.className = "ctx-back"; ctxBack.hidden = true;
+  document.body.append(ctxBack, ctx);
+  function closeCtx() { ctx.hidden = true; ctxBack.hidden = true; }
+  ctxBack.addEventListener("click", closeCtx);
+  function openSheet(x, y, title, items) {
+    const mob = document.documentElement.classList.contains("m");
+    ctx.innerHTML = "";
+    if (title) { const head = document.createElement("div"); head.className = "ctx-head"; head.textContent = title; ctx.appendChild(head); }
+    let first = null;
+    items.forEach(it => {
+      if (!it) return;
+      const b = document.createElement("button");
+      b.className = "ctx-item" + (it.cls ? " " + it.cls : ""); b.setAttribute("role", "menuitem");
+      if (it.dot) { const d = document.createElement("span"); d.className = "dot"; d.style.background = it.dot; b.appendChild(d); }
+      b.appendChild(document.createTextNode(it.label));
+      b.addEventListener("click", () => { closeCtx(); it.fn(); });
+      ctx.appendChild(b);
+      if (!first) first = b;
+    });
+    if (mob) {
+      const c = document.createElement("button");
+      c.className = "ctx-item ctx-cancel"; c.textContent = "Annuler";
+      c.addEventListener("click", closeCtx);
+      ctx.appendChild(c);
+    }
+    ctx.hidden = false; ctxBack.hidden = !mob;
+    if (!mob) {
+      const r = ctx.getBoundingClientRect();
+      ctx.style.left = Math.max(8, Math.min(x, window.innerWidth - r.width - 8)) + "px";
+      ctx.style.top = Math.max(8, Math.min(y, window.innerHeight - r.height - 8)) + "px";
+      if (first) first.focus();
+    }
+  }
   function openCtx(x, y, sid) {
     const s = sessions.find(v => v.id === sid);
     if (!s) return;
     const it = info(s);
-    ctx.innerHTML = "";
-    const head = document.createElement("div"); head.className = "ctx-head";
-    head.textContent = (it.ev ? "◆ " : "") + it.text + " · " + timeText(s);
-    ctx.appendChild(head);
-    const mk = (label, fn, cls) => {
-      const b = document.createElement("button");
-      b.className = "ctx-item" + (cls ? " " + cls : ""); b.setAttribute("role", "menuitem"); b.textContent = label;
-      b.addEventListener("click", () => { closeCtx(); fn(); });
-      ctx.appendChild(b);
-      return b;
-    };
-    const first = mk("✎ Modifier", () => openSession({ id: sid }));
-    mk("✕ Supprimer", () => { sessions = sessions.filter(v => v.id !== sid); saveCal(); render(); }, "danger");
-    ctx.hidden = false;
-    const r = ctx.getBoundingClientRect();
-    ctx.style.left = Math.max(8, Math.min(x, window.innerWidth - r.width - 8)) + "px";
-    ctx.style.top = Math.max(8, Math.min(y, window.innerHeight - r.height - 8)) + "px";
-    first.focus();
+    openSheet(x, y, (it.ev ? "◆ " : "") + it.text + " · " + timeText(s), [
+      { label: "✎  Modifier", fn: () => openSession({ id: sid }) },
+      { label: "🔔  Rappel sur l’iPhone", fn: () => icsForSession(s) },
+      { label: "✕  Supprimer", cls: "danger", fn: () => { sessions = sessions.filter(v => v.id !== sid); saveCal(); render(); } }
+    ]);
   }
-  document.addEventListener("pointerdown", e => { if (!ctx.hidden && !ctx.contains(e.target)) closeCtx(); }, true);
+  document.addEventListener("pointerdown", e => {
+    if (ctx.hidden || ctx.contains(e.target) || e.target === ctxBack) return;
+    closeCtx();
+  }, true);
   document.addEventListener("keydown", e => { if (e.key === "Escape" && !ctx.hidden) closeCtx(); });
-  window.addEventListener("scroll", () => { if (!ctx.hidden) closeCtx(); }, true);
-  window.addEventListener("resize", closeCtx);
+  window.addEventListener("scroll", () => { if (!ctx.hidden && !document.documentElement.classList.contains("m")) closeCtx(); }, true);
+  window.addEventListener("resize", () => { if (!document.documentElement.classList.contains("m")) closeCtx(); });
   function bindCtx(el, sid) {
     el.addEventListener("contextmenu", e => { e.preventDefault(); openCtx(e.clientX, e.clientY, sid); });
     el.addEventListener("keydown", e => {
@@ -2134,11 +2408,15 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
     el.addEventListener("pointerdown", e => {
       if (e.pointerType !== "touch") return;
       sx = e.clientX; sy = e.clientY;
-      timer = setTimeout(() => { timer = null; openCtx(sx, sy, sid); }, 500);
+      timer = setTimeout(() => { timer = null; el._lp = true; openCtx(sx, sy, sid); }, 500);
     });
     el.addEventListener("pointerup", clear);
     el.addEventListener("pointercancel", clear);
     el.addEventListener("pointermove", e => { if (timer && Math.hypot(e.clientX - sx, e.clientY - sy) > 8) clear(); });
+    el.addEventListener("click", e => {
+      if (el._lp) { el._lp = false; e.stopImmediatePropagation(); return; }
+      if (isMobile() && !el.classList.contains("cal-mchip")) { e.stopPropagation(); openCtx(e.clientX, e.clientY, sid); }
+    });
   }
   function attachResize(blk, s, startH) {
     const EDGE = 8;
@@ -2257,7 +2535,7 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
     return t;
   }
   function rtSyncUI() {
-    const week = calView === "week";
+    const week = calView === "week" || calView === "day";
     document.getElementById("rtBar").hidden = !week || rtEditing;
     document.getElementById("rtEditor").hidden = !week || !rtEditing;
     calWeekEl.classList.toggle("rt-editing", rtEditing);
@@ -2539,6 +2817,7 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
     }
     weekStart = mondayOf(parseDue(sDate.value));
     monthStart = firstOfMonth(parseDue(sDate.value));
+    calDay = parseDue(sDate.value);
     saveCal(); sdlg.close(); render();
   }
   document.querySelectorAll("[data-k]").forEach(b => b.addEventListener("click", () => setKind(b.dataset.k)));
@@ -2758,9 +3037,167 @@ footer { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-co
   document.getElementById("catClose").addEventListener("click", () => catDlg.close());
   catDlg.addEventListener("click", e => { if (e.target === catDlg) catDlg.close(); });
 
+  /* Rappels via le Calendrier de l’iPhone (.ics) */
+  function icsEsc(s) { return String(s || "").replace(/[\\;,]/g, m => "\\" + m).replace(/\n/g, "\\n"); }
+  function icsStamp() { return new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, ""); }
+  function icsDay(d) { return localDay(d.getTime()).replace(/-/g, ""); }
+  function downloadIcs(name, lines) {
+    const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//ORGA//FR", "CALSCALE:GREGORIAN", "METHOD:PUBLISH", "BEGIN:VEVENT"]
+      .concat(lines, ["END:VEVENT", "END:VCALENDAR"]).join("\r\n");
+    const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
+    const a = document.createElement("a");
+    a.href = url; a.download = name + ".ics";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+  }
+  function icsForSession(s) {
+    const it = info(s);
+    const lines = ["UID:" + s.id + "@orga", "DTSTAMP:" + icsStamp(), "SUMMARY:" + icsEsc(it.text)];
+    if (s.allDay) {
+      lines.push("DTSTART;VALUE=DATE:" + icsDay(parseDue(s.date)), "DTEND;VALUE=DATE:" + icsDay(addDays(parseDue(s.date), 1)));
+    } else {
+      const e = endMin(s);
+      const endDay = e >= 1440 ? addDays(parseDue(s.date), 1) : parseDue(s.date);
+      lines.push("DTSTART:" + icsDay(parseDue(s.date)) + "T" + s.start.replace(":", "") + "00");
+      lines.push("DTEND:" + icsDay(endDay) + "T" + fmtHM(e % 1440).replace(":", "") + "00");
+    }
+    if (it.note) lines.push("LOCATION:" + icsEsc(it.note));
+    lines.push("BEGIN:VALARM", "ACTION:DISPLAY", "DESCRIPTION:" + icsEsc(it.text), "TRIGGER:" + (s.allDay ? "PT9H" : "-PT15M"), "END:VALARM");
+    downloadIcs("orga-rappel", lines);
+  }
+  function icsForDeadline(t) {
+    const d = parseDue(t.due);
+    const lines = ["UID:deadline-" + t.id + "@orga", "DTSTAMP:" + icsStamp(), "SUMMARY:" + icsEsc("Deadline : " + t.text),
+      "DTSTART;VALUE=DATE:" + icsDay(d), "DTEND;VALUE=DATE:" + icsDay(addDays(d, 1)),
+      "BEGIN:VALARM", "ACTION:DISPLAY", "DESCRIPTION:" + icsEsc("Deadline demain : " + t.text), "TRIGGER:-PT15H", "END:VALARM",
+      "BEGIN:VALARM", "ACTION:DISPLAY", "DESCRIPTION:" + icsEsc("Deadline aujourd’hui : " + t.text), "TRIGGER:PT9H", "END:VALARM"];
+    downloadIcs("orga-deadline", lines);
+  }
+
+  /* Mobile (iPhone) */
+  function isMobile() { return document.documentElement.classList.contains("m"); }
+  const MUIKEY = "eisenhower-mui-v1";
+  let activeQ = 1;
+  try { const u = JSON.parse(localStorage.getItem(MUIKEY)) || {}; if ([0, 1, 2, 3, 4].includes(u.activeQ)) activeQ = u.activeQ; } catch (e) {}
+  function saveMui() { try { localStorage.setItem(MUIKEY, JSON.stringify({ activeQ })); } catch (e) {} }
+  let calDay = new Date(); calDay.setHours(0, 0, 0, 0);
+  if (isMobile() && calView === "week") calView = "day";
+
+  function updateTiles() {
+    const vis = visible();
+    for (let q = 0; q <= 4; q++) {
+      const el = document.getElementById("t" + q);
+      if (el) el.textContent = vis.filter(t => t.q === q && !t.done).length;
+    }
+    document.querySelectorAll("[data-qt]").forEach(b => b.setAttribute("aria-pressed", String(Number(b.dataset.qt) === activeQ)));
+    document.querySelectorAll(".quad[data-q]").forEach(s => s.classList.toggle("m-active", Number(s.dataset.q) === activeQ));
+  }
+  document.querySelectorAll("[data-qt]").forEach(b => b.addEventListener("click", () => { activeQ = Number(b.dataset.qt); saveMui(); updateTiles(); }));
+
+  function openTaskSheet(t, li) {
+    const btn = title => li.querySelector('.actions [title="' + title + '"]');
+    const items = [];
+    const play = btn("Lancer un pomodoro sur cette tâche");
+    if (play) items.push({ label: "▶  Lancer un pomodoro", fn: () => play.click() });
+    const plan = btn("Planifier une session");
+    if (plan) items.push({ label: "▦  Planifier une session", fn: () => plan.click() });
+    items.push({ label: "◷  " + (t.due ? "Changer la deadline" : "Ajouter une deadline"), fn: () => btn("Deadline").click() });
+    if (t.due) items.push({ label: "🔔  Rappel de la deadline sur l’iPhone", fn: () => icsForDeadline(t) });
+    items.push({ label: "✎  Renommer", fn: () => btn("Modifier").click() });
+    items.push({ label: "●  Catégorie" + (t.d && catById(t.d) ? " : " + catName(t.d) : ""), fn: () => openSheet(0, 0, "Catégorie",
+      [{ label: (t.d ? "" : "✓  ") + "Aucune", fn: () => { delete t.d; save(); render(); } }]
+        .concat(catsFor("matrice").map(c => ({ label: (t.d === c.id ? "✓  " : "") + c.name, dot: DVAR[c.id], fn: () => { t.d = c.id; save(); render(); } })))) });
+    items.push({ label: "⇄  Déplacer vers…", fn: () => openSheet(0, 0, "Déplacer vers",
+      [0, 1, 2, 3, 4].filter(q => q !== t.q).map(q => ({ label: NAMES[q], dot: COLORS[q], fn: () => { t.q = q; save(); render(); } }))) });
+    items.push({ label: "✕  Supprimer", cls: "danger", fn: () => btn("Supprimer").click() });
+    openSheet(0, 0, t.text, items);
+  }
+
+  const addDlg = document.getElementById("addDlg");
+  (function () {
+    const f = document.querySelector(".add");
+    const body = document.getElementById("addBody");
+    if (!f || !body || !isMobile()) return;
+    body.appendChild(f);
+    const v = document.createElement("button");
+    v.className = "small-link m-vrac-link";
+    v.textContent = "Plusieurs idées d’un coup ? Note-les « En vrac »";
+    v.addEventListener("click", () => { addDlg.close(); activeQ = 0; saveMui(); updateTiles(); dump.focus(); });
+    body.appendChild(v);
+  })();
+  function openAdd() { addDlg.showModal(); input.focus(); }
+  document.getElementById("addClose").addEventListener("click", () => addDlg.close());
+  addDlg.addEventListener("click", e => { if (e.target === addDlg) addDlg.close(); });
+
+  document.getElementById("fab").addEventListener("click", () => {
+    if (tab === "calendrier") {
+      const date = calView === "day" ? localDay(calDay.getTime()) : undefined;
+      openSheet(0, 0, "Ajouter au calendrier", [
+        { label: "▦  Session sur une tâche", fn: () => openSession({ kind: "task", date }) },
+        { label: "◆  Événement", fn: () => openSession({ kind: "event", date }) }
+      ]);
+      return;
+    }
+    openAdd();
+  });
+  document.getElementById("tbMore").addEventListener("click", () => openSheet(0, 0, "Plus", [
+    { label: "⚑  Toutes les deadlines", fn: () => document.getElementById("openList").click() },
+    { label: "▤  Archives", fn: () => document.querySelector(".js-archive").click() },
+    { label: "●  Catégories", fn: () => document.getElementById("openCats").click() },
+    { label: "⇩  Sauvegarde", fn: () => document.getElementById("openBackup").click() }
+  ]));
+  document.getElementById("mDeadlines").addEventListener("click", () => document.getElementById("openList").click());
+  document.getElementById("mArchives").addEventListener("click", () => document.querySelector(".js-archive").click());
+  document.getElementById("mRoutine").addEventListener("click", () => {
+    const items = [];
+    if (rt.templates.length) {
+      items.push({ label: (rt.show === false ? "◉  Afficher" : "◌  Masquer") + " la routine", fn: () => { rt.show = rt.show === false; saveRt(); calRender(); } });
+      rt.templates.forEach(tp => items.push({ label: (rt.active === tp.id ? "✓  " : "") + tp.name, fn: () => { rt.active = tp.id; rt.show = true; saveRt(); calRender(); } }));
+      items.push({ label: "✎  Modifier la routine", fn: () => document.getElementById("rtEdit").click() });
+    } else {
+      items.push({ label: "+  Créer une semaine type", fn: () => document.getElementById("rtEdit").click() });
+    }
+    openSheet(0, 0, "Routine", items);
+  });
+
+  function renderStrip() {
+    const el = document.getElementById("calStrip");
+    el.hidden = calView !== "day";
+    if (el.hidden) return;
+    el.innerHTML = "";
+    const mon = mondayOf(calDay);
+    const todayKey = localDay(Date.now()), selKey = localDay(calDay.getTime());
+    const vs = visibleSessions(), vt = visible("calendrier");
+    const L = ["L", "M", "M", "J", "V", "S", "D"];
+    for (let i = 0; i < 7; i++) {
+      const d = addDays(mon, i);
+      const k = localDay(d.getTime());
+      const has = vs.some(s => s.date === k) || vt.some(t => !t.done && t.due === k);
+      const b = document.createElement("button");
+      b.className = (k === todayKey ? "today" : "") + (has ? " has" : "");
+      b.setAttribute("aria-pressed", String(k === selKey));
+      b.setAttribute("aria-label", fmtDayLong.format(d));
+      b.innerHTML = "<span class=\"sw\">" + L[i] + "</span><span class=\"sd\">" + d.getDate() + "</span><span class=\"dot\"></span>";
+      b.addEventListener("click", () => { calDay = d; calRender(); });
+      el.appendChild(b);
+    }
+  }
+  let swX = null, swY = 0;
+  calWeekEl.addEventListener("touchstart", e => {
+    if (calView !== "day" || rtEditing) { swX = null; return; }
+    swX = e.touches[0].clientX; swY = e.touches[0].clientY;
+  }, { passive: true });
+  calWeekEl.addEventListener("touchend", e => {
+    if (swX === null) return;
+    const dx = e.changedTouches[0].clientX - swX, dy = e.changedTouches[0].clientY - swY;
+    swX = null;
+    if (Math.abs(dx) > 70 && Math.abs(dy) < 50) { calDay = addDays(calDay, dx < 0 ? 1 : -1); calRender(); }
+  }, { passive: true });
+
   /* Tabs */
   function showTab(name) {
     tab = name;
+    document.documentElement.dataset.tab = name;
     ["matrice", "calendrier", "pomodoro"].forEach(p => { document.getElementById("panel-" + p).hidden = p !== name; });
     document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === name)));
     saveUI();
