@@ -1,5 +1,5 @@
 // Change ce numéro à chaque mise à jour pour forcer le rafraîchissement du cache
-const VERSION = "orga-v4";
+const VERSION = "orga-v5";
 const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./icon-1024.png", "./apple-touch-icon.png"];
 
 self.addEventListener("install", e => {
